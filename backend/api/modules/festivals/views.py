@@ -141,7 +141,7 @@ class FestivalView(APIView):
     def put(self, request, pk):
         try:
             festival = Festival.objects.get(pk=pk)
-
+            print("salut")
             payload = {
                 "festival_name": request.data.get("festival_name", festival.festival_name),
                 "date": request.data.get("date", festival.date),
@@ -153,8 +153,6 @@ class FestivalView(APIView):
                 "photo_description": request.data.get("photo_description", festival.photo_description),
                 "description": request.data.get("description", festival.description),
             }
-
-            print(payload)
 
             serializer = FestivalSerializer(festival, data=payload)
 
@@ -177,6 +175,8 @@ class FestivalView(APIView):
                     },
                     'description': festival_data["description"],
                 }
+
+                print(festival_data)
 
                 return Response(data=festival_data, status=status.HTTP_200_OK)
             
