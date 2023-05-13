@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^api/authentication/?', include('api.modules.authentication.urls')),
     re_path(r'^api/users/?', include('api.modules.users.urls')),
-    #re_path(r'^api/rooms/?', include('api.modules.rooms.urls')),
+    re_path(r'^api/festivals/?', include('api.modules.festivals.urls')),
     # re_path(r'^api/players/?', include('api.modules.players.urls')),
     # re_path(r'^api/reviews/?', include('api.modules.reviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
