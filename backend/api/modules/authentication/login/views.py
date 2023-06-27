@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .serializers import LoginSerializer
 from rest_framework.permissions import IsAuthenticated
+from api.modules.users.models import User
 
 # Create your views here.
 class LoginView(APIView):
@@ -22,21 +23,19 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=payload)
         try:
             serializer.is_valid(raise_exception=True)
-            print("aici0")
             user = authenticate(username=serializer.data['email_username'], password=serializer.data['password'])
-            print("aici01")
+
             if not user:
-                print("aici02")
                 return Response(data={'error': 'User not found!'}, status=status.HTTP_401_UNAUTHORIZED)
-            print("aici1")
+            
             token, _ = Token.objects.get_or_create(user=user)
-            print("aici2")
-            return Response(data={'token': token.key}, status=status.HTTP_200_OK)
+
+            user = User.objects.get(username = serializer.data['email_username'])
+
+            return Response(data={'token': token.key, 'admin': user.admin}, status=status.HTTP_200_OK)
         except serializers.ValidationError as e:
-            print("aiciE1")
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            print("aiciE2")
             return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutView(APIView):

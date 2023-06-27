@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'api.modules.authentication.register',
     'api.modules.users',
     'api.modules.festivals',
+    'api.modules.tickets',
 ]
 
 MIDDLEWARE = [

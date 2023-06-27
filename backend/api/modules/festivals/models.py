@@ -14,6 +14,7 @@ class Festival(models.Model):
     photo_description = models.ImageField(upload_to='festival_photos/', blank=True, null=True)
     festival_admin = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='room_administrator')
     description = models.CharField(max_length=3000, default='')
+    price = models.FloatField()
 
 
     

@@ -2,29 +2,10 @@ import re
 from .models import User
 from rest_framework import serializers
 import pycountry
-#from api.modules.rooms.models import Room
 
-# class RoomSerializerPerPlayer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Room
-#         fields = [
-#             'id',
-#             'sport_type',
-#             'date',
-#             'time',
-#             'location_lat',
-#             'location_lon',
-#             'location_address',
-#             'extra_details',
-#             'name',
-#             'skill_level',
-#             'max_no_players',
-#             'archived',
-#         ]
 
 class UserSerializer(serializers.ModelSerializer):
-    #rooms = RoomSerializerPerPlayer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -34,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'phone',
             'country',
+            'admin',
             'photo'
         ]
 
@@ -42,6 +24,7 @@ class UserUpdateSerializer(serializers.Serializer):
     username = serializers.CharField(required=True, allow_null=False)
     phone = serializers.CharField(required=False, allow_null=False)
     country = serializers.CharField(required=False, allow_null=False)
+    admin = serializers.BooleanField(required=False, allow_null=False)
     photo = serializers.ImageField(required=False, allow_null=True)
 
     def validate_email(self, value):
@@ -78,4 +61,5 @@ class UserUpdateSerializer(serializers.Serializer):
             raise serializers.ValidationError('Invalid country! Introduce a valid country')
 
         return value
+    
 

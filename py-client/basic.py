@@ -14,6 +14,4 @@ endpoint = "http://127.0.0.1:8000/api/authentication/register/" #"http://localho
 # print(get_response.status_code)
 # # print(get_response.text)
 
-country_names = [country.name for country in pycountry.countries]
-if 'Romania' in country_names:
-    print("yes")
+

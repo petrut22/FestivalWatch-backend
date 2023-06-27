@@ -17,11 +17,9 @@ class UserSerializerPerFestival(serializers.ModelSerializer):
         ]
 
 class FestivalSerializer(serializers.ModelSerializer):
-    # players = PlayerSerializerPerRoom(many=True, read_only=True)
     festival_admin = UserSerializerPerFestival(read_only=True)
     photo_cover = serializers.ImageField(required=False, allow_null=True)
     photo_description = serializers.ImageField(required=False, allow_null=True)
-    # extra_details = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = Festival
@@ -37,5 +35,6 @@ class FestivalSerializer(serializers.ModelSerializer):
             'festival_name',
             'description',
             'festival_admin',
+            'price',
 
         ]

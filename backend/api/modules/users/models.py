@@ -5,6 +5,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     phone = models.CharField(unique=True, max_length=10, null=True)
     country = models.CharField(null=True, max_length=50)
+    admin = models.BooleanField(default=False, null=True)
     photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
 
     

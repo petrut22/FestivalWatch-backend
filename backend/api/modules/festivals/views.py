@@ -35,6 +35,7 @@ class FestivalsView(APIView):
                     **festival_data["festival_admin"],
                 },
                 'description': festival_data["description"],
+                'price': festival_data["price"],
             } for festival_data in festivals_data ]
 
             return Response(data=festivals_data, status=status.HTTP_200_OK)
@@ -53,11 +54,15 @@ class FestivalsView(APIView):
                 "photo_cover": request.data.get("photo_cover", None),
                 "photo_description": request.data.get("photo_description", None),
                 "description": request.data.get("description", None),
+                "price": request.data.get("price", None),
             }
+
+            print("da1")
 
             if not request.user:
                 return Response(data={'errors': 'User not authenticated'}, status=status.HTTP_403_FORBIDDEN)
 
+            print("da2")
 
             serializer = FestivalSerializer(data=payload)
             if serializer.is_valid():
@@ -68,7 +73,7 @@ class FestivalsView(APIView):
                 serializer = FestivalSerializer(festival)
 
                 festival_data = serializer.data
-
+                print("da3")
                 festival_data = {
                     'id': festival_data["id"],
                     'festival_name': festival_data["festival_name"],
@@ -83,8 +88,9 @@ class FestivalsView(APIView):
                         **festival_data["festival_admin"],
                     },
                     'description': festival_data["description"],
+                    'price': festival_data["price"],
                 }
-
+                print("da4")
                 return Response(data=festival_data, status=status.HTTP_201_CREATED)
             return Response(data={'errors': str(serializer.errors)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -128,6 +134,7 @@ class FestivalView(APIView):
                     **festival_data["festival_admin"],
                 },
                 'description': festival_data["description"],
+                'price': festival_data["price"],
             }
 
 
@@ -152,13 +159,14 @@ class FestivalView(APIView):
                 "photo_cover": request.data.get("photo_cover", festival.photo_cover),
                 "photo_description": request.data.get("photo_description", festival.photo_description),
                 "description": request.data.get("description", festival.description),
+                "price": request.data.get("price", festival.price),
             }
 
             serializer = FestivalSerializer(festival, data=payload)
-
+            print(payload)
             if serializer.is_valid():
                 serializer.save()
-
+                print("salut2")
                 festival_data = serializer.data
                 festival_data = {
                     'id': festival_data["id"],
@@ -174,6 +182,7 @@ class FestivalView(APIView):
                         **festival_data["festival_admin"],
                     },
                     'description': festival_data["description"],
+                    'price': festival_data["price"],
                 }
 
                 print(festival_data)
