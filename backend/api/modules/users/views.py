@@ -158,3 +158,14 @@ class UserView(APIView):
             print("e3")
             return Response(data={'errors': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    def delete(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            user.delete()
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist as e:
+            return Response(data={'errors': str(e)}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response(data={'errors': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
